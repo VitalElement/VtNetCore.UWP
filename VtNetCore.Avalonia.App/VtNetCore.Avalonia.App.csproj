@@ -27,7 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="VirtualTerminalControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

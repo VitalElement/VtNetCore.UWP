@@ -1,5 +1,4 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
@@ -14,7 +13,7 @@ using VtNetCore.XTermParser;
 
 namespace VtNetCore.Avalonia.App
 {
-    public class VirtualTerminalControl : UserControl
+    public class VirtualTerminalControl : TemplatedControl
     {
         public VirtualTerminalController Terminal { get; set; } = new VirtualTerminalController();
         public DataConsumer Consumer { get; set; }
@@ -30,7 +29,6 @@ namespace VtNetCore.Avalonia.App
         private string _rawTextString = "";
         private bool _rawTextChanged = false;
         public DateTime TerminalIdleSince = DateTime.Now;
-
 
         public string RawText
         {
@@ -51,13 +49,6 @@ namespace VtNetCore.Avalonia.App
 
         public VirtualTerminalControl()
         {
-            this.InitializeComponent();
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-
             this.TextInput += VirtualTerminalControl_TextInput;
 
             Consumer = new DataConsumer(Terminal);
@@ -67,7 +58,7 @@ namespace VtNetCore.Avalonia.App
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
 
-            var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");            
+            var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");
         }
 
         private void VirtualTerminalControl_TextInput(object sender, TextInputEventArgs e)
@@ -193,7 +184,7 @@ namespace VtNetCore.Avalonia.App
             lock (Terminal)
             {
                 int oldTopRow = Terminal.ViewPort.TopRow;
-
+                
                 Consumer.Push(e.Data);
 
                 if (Terminal.Changed)
@@ -517,12 +508,12 @@ namespace VtNetCore.Avalonia.App
         }
 
         private void ProcessTextFormat()
-        {
+        {            
             var textLayout = new FormattedText
             {
                 Text = "Q",
-                Typeface = new Typeface("Consolas", 10),
-            };
+                Typeface = new Typeface(FontFamily, FontSize, this.FontStyle, this.FontWeight)
+        };
 
             var size = textLayout.Measure();
             if (CharacterWidth != size.Width || CharacterHeight != size.Height)
