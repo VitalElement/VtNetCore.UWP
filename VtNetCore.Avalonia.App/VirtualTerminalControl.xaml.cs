@@ -607,8 +607,38 @@ namespace VtNetCore.Avalonia.App
                 }
             }
 
-            //if (ViewDebugging)
-            //    AnnotateView(drawingSession);
+            if (ViewDebugging)
+            {
+                AnnotateView(context);
+            }
+        }
+
+        private void AnnotateView(DrawingContext context)
+        {
+            var lineNumberFormat = new Typeface(FontFamily, FontSize / 2, FontStyle, FontWeight);
+
+            for (var i = 0; i < Rows; i++)
+            {
+                string s = i.ToString();
+                var textLayout = new FormattedText
+                {
+                    Text = s.ToString(),
+                    Typeface = lineNumberFormat
+                };
+
+                float y = i * (float)CharacterHeight;
+                context.DrawLine(new Pen(Brushes.Beige), new Point(0, y), new Point(Bounds.Size.Width, y));
+                context.DrawText(Brushes.Yellow, new Point((Bounds.Size.Width - (CharacterWidth / 2 * s.Length)), y), textLayout);
+
+                s = (i + 1).ToString();
+
+                textLayout = new FormattedText { Text = s.ToString(), Typeface = lineNumberFormat };
+                context.DrawText(Brushes.Green, new Point((Bounds.Size.Width - (CharacterWidth / 2 * (s.Length + 3))), y), textLayout);
+            }
+
+            var bigText = Terminal.DebugText;
+            var bigTextLayout = new FormattedText { Text = bigText, Typeface = lineNumberFormat };
+            context.DrawText(Brushes.Yellow, new Point((Bounds.Size.Width - bigTextLayout.Measure().Width - 100), 0), bigTextLayout);
         }
 
         private IBrush GetBackgroundBrush(TerminalAttribute attribute, bool invert)
