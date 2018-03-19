@@ -104,7 +104,7 @@ namespace VtNetCore.Avalonia.App
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
 
-            var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");
+            //var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");
         }
 
         protected override void OnTextInput(TextInputEventArgs e)
@@ -307,8 +307,7 @@ namespace VtNetCore.Avalonia.App
 
                     var captured = Terminal.GetText(TextSelection.Start.Column, TextSelection.Start.Row, TextSelection.End.Column, TextSelection.End.Row);
 
-                    throw new NotImplementedException();
-                    //Clipboard.SetContent(dataPackage);
+                    Application.Current.Clipboard.SetTextAsync(captured).GetAwaiter().GetResult();
                 }
                 else
                 {
@@ -435,7 +434,7 @@ namespace VtNetCore.Avalonia.App
             lock (Terminal)
             {
                 int row = ViewTop;
-                float verticalOffset = -row * (float)CharacterHeight;
+                var verticalOffset = -row * CharacterHeight;
 
                 var lines = Terminal.ViewPort.GetLines(ViewTop, Rows);
 
@@ -450,8 +449,8 @@ namespace VtNetCore.Avalonia.App
                     int column = 0;
 
                     using (context.PushPreTransform(Matrix.CreateScale(
-                        (float)(line.DoubleWidth ? 2.0 : 1.0),
-                        (float)(line.DoubleHeightBottom | line.DoubleHeightTop ? 2.0 : 1.0))))
+                        line.DoubleWidth ? 2.0 : 1.0,
+                        line.DoubleHeightBottom | line.DoubleHeightTop ? 2.0 : 1.0)))
                     {
 
                         var spanStart = 0;
@@ -495,8 +494,8 @@ namespace VtNetCore.Avalonia.App
                     int column = 0;
 
                     using (context.PushPreTransform(Matrix.CreateScale(
-                        (float)(line.DoubleWidth ? 2.0 : 1.0),
-                        (float)(line.DoubleHeightBottom | line.DoubleHeightTop ? 2.0 : 1.0))))
+                       line.DoubleWidth ? 2.0 : 1.0,
+                        line.DoubleHeightBottom | line.DoubleHeightTop ? 2.0 : 1.0)))
                     {
 
                         var spanStart = 0;
@@ -626,7 +625,7 @@ namespace VtNetCore.Avalonia.App
                     Typeface = lineNumberFormat
                 };
 
-                float y = i * (float)CharacterHeight;
+                var y = i * CharacterHeight;
                 context.DrawLine(new Pen(Brushes.Beige), new Point(0, y), new Point(Bounds.Size.Width, y));
                 context.DrawText(Brushes.Yellow, new Point((Bounds.Size.Width - (CharacterWidth / 2 * s.Length)), y), textLayout);
 
