@@ -30,6 +30,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SshNet.Security.Cryptograph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VtNetCore.Cocoa", "VtNetCore.Cocoa\VtNetCore.Cocoa.csproj", "{8D6FC45A-C666-4108-B54B-3209B077CBD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VtNetCore.Avalonia.App", "VtNetCore.Avalonia.App\VtNetCore.Avalonia.App.csproj", "{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -378,6 +380,38 @@ Global
 		{8D6FC45A-C666-4108-B54B-3209B077CBD2}.Release|ARM.ActiveCfg = Release|Any CPU
 		{8D6FC45A-C666-4108-B54B-3209B077CBD2}.Release|x64.ActiveCfg = Release|Any CPU
 		{8D6FC45A-C666-4108-B54B-3209B077CBD2}.Release|x86.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|x64.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Debug|x86.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|ARM.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|x64.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|x64.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|x86.ActiveCfg = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Debug|x86.Build.0 = Debug|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|Any CPU.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|ARM.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|ARM.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|x64.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|x64.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|x86.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Mac Release|x86.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|ARM.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x64.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x64.Build.0 = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x86.ActiveCfg = Release|Any CPU
+		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

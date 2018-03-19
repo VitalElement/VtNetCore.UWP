@@ -213,16 +213,13 @@
             </LinearGradientBrush>
         </Canvas.Background>
 
-        <my:VirtualTerminalControl  x:Name="terminal" Width="1280" Height="800" Canvas.Left="-116" Canvas.Top="-27" RenderTransformOrigin="0.5,0.5">
-            <my:VirtualTerminalControl.RenderTransform>
-                <CompositeTransform ScaleX="0.74" ScaleY="0.74"/>
-            </my:VirtualTerminalControl.RenderTransform>
-            <my:VirtualTerminalControl.Projection>
-                <PlaneProjection RotationY="-7"/>
-            </my:VirtualTerminalControl.Projection>
+        <my:VirtualTerminalControl  x:Name="terminal" Width="1280" Height="800" RenderTransformOrigin="0.5,0.5">
+            
+            
         </my:VirtualTerminalControl>
         
         <TextBox 
+            Visibility="Collapsed"
         x:Name="rawView"
         IsTabStop="False"
         Foreground="White"

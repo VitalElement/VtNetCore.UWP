@@ -55,21 +55,21 @@
         {
             if (DateTime.Now.Subtract(terminal.TerminalIdleSince).TotalSeconds > 0.25)
             {
-                var text = terminal.RawText;
-                if (OldRawLength != text.Length)
-                {
-                    rawView.Text = text;
-                    OldRawLength = text.Length;
+                //var text = terminal.RawText;
+                //if (OldRawLength != text.Length)
+                //{
+                //    rawView.Text = text;
+                //    OldRawLength = text.Length;
 
-                    var grid = (Grid)Windows.UI.Xaml.Media.VisualTreeHelper.GetChild(rawView, 0);
-                    for (var i = 0; i <= Windows.UI.Xaml.Media.VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
-                    {
-                        object obj = Windows.UI.Xaml.Media.VisualTreeHelper.GetChild(grid, i);
-                        if (!(obj is ScrollViewer)) continue;
-                        ((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f);
-                        break;
-                    }
-                }
+                //    var grid = (Grid)Windows.UI.Xaml.Media.VisualTreeHelper.GetChild(rawView, 0);
+                //    for (var i = 0; i <= Windows.UI.Xaml.Media.VisualTreeHelper.GetChildrenCount(grid) - 1; i++)
+                //    {
+                //        object obj = Windows.UI.Xaml.Media.VisualTreeHelper.GetChild(grid, i);
+                //        if (!(obj is ScrollViewer)) continue;
+                //        ((ScrollViewer)obj).ChangeView(0.0f, ((ScrollViewer)obj).ExtentHeight, 1.0f);
+                //        break;
+                //    }
+                //}
             }
         }
 

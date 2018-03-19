@@ -68,6 +68,8 @@
             Terminal.WindowTitleChanged += OnWindowTitleChanged;
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
+
+            ConnectTo("ssh://10.2.0.146/", "osmc", "osmc");
         }
 
         private void OnLog(object sender, TextEventArgs e)
@@ -592,7 +594,7 @@
         private void TerminalTapped(object sender, TappedRoutedEventArgs e)
         {
             this.Focus(FocusState.Pointer);
-        }
+        }        
 
         private void TerminalGotFocus(object sender, RoutedEventArgs e)
         {
@@ -680,7 +682,7 @@
                 TextRange newSelection;
                 var textPosition = position.OffsetBy(0, ViewTop);
 
-                if (MousePressedAt != textPosition)
+                if (MousePressedAt != null && MousePressedAt != textPosition)
                 {
                     if (MousePressedAt <= textPosition)
                     {
