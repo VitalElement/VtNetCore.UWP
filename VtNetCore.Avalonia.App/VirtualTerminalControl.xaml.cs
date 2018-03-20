@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using System;
 using System.Text;
@@ -105,6 +106,20 @@ namespace VtNetCore.Avalonia.App
             Terminal.StoreRawText = true;
 
             //var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");
+        }
+
+        protected override void OnGotFocus(GotFocusEventArgs e)
+        {
+            base.OnGotFocus(e);
+
+            InvalidateVisual();
+        }
+
+        protected override void OnLostFocus(RoutedEventArgs e)
+        {
+            base.OnLostFocus(e);
+
+            InvalidateVisual();
         }
 
         protected override void OnTextInput(TextInputEventArgs e)
@@ -602,7 +617,14 @@ namespace VtNetCore.Avalonia.App
                         CharacterHeight + 0.9
                     );
 
-                    context.DrawRectangle(new Pen(GetForegroundBrush(Terminal.CursorState.Attributes, false)), cursorRect);
+                    if (IsFocused)
+                    {
+                        context.FillRectangle(GetForegroundBrush(Terminal.CursorState.Attributes, false), cursorRect);
+                    }
+                    else
+                    {
+                        context.DrawRectangle(new Pen(GetForegroundBrush(Terminal.CursorState.Attributes, false)), cursorRect);
+                    }
                 }
             }
 
