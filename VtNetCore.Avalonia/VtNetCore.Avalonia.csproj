@@ -18,9 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\modules\VtConnect\VtConnect\VtConnect.csproj">
-      <Private>true</Private>
-    </ProjectReference>
     <ProjectReference Include="..\modules\VtNetCore\VtNetCore\VtNetCore.csproj">
       <Private>true</Private>
     </ProjectReference>

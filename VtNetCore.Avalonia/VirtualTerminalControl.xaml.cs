@@ -62,7 +62,7 @@ namespace VtNetCore.Avalonia
         public int Columns { get; private set; } = -1;
         public int Rows { get; private set; } = -1;
 
-        public Connection VtConnection { get; set; }
+        public IConnection Connection { get; set; }
 
         public VirtualTerminalController Terminal { get; set; } = new VirtualTerminalController();
         public DataConsumer Consumer { get; set; }
@@ -355,13 +355,13 @@ namespace VtNetCore.Avalonia
 
             Task.Run(() =>
             {
-                VtConnection.SendData(e.Data);
+                Connection.SendData(e.Data);
             });
         }
 
         public bool Connected
         {
-            get { return VtConnection != null && VtConnection.IsConnected; }
+            get { return Connection != null && Connection.IsConnected; }
         }
 
         public void Disconnect()
@@ -369,9 +369,9 @@ namespace VtNetCore.Avalonia
             if (!Connected)
                 return;
 
-            VtConnection.Disconnect();
-            VtConnection.DataReceived -= OnDataReceived;
-            VtConnection = null;
+            Connection.Disconnect();
+            Connection.DataReceived -= OnDataReceived;
+            Connection = null;
         }
 
         public bool ConnectTo(string uri, string username, string password)
@@ -379,20 +379,20 @@ namespace VtNetCore.Avalonia
             if (Connected)
                 return false;       // Already connected
 
-            var credentials = new UsernamePasswordCredentials
-            {
-                Username = username,
-                Password = password
-            };
+            //var credentials = new UsernamePasswordCredentials
+            //{
+            //    Username = username,
+            //    Password = password
+            //};
 
-            var destination = new Uri(uri);
+            //var destination = new Uri(uri);
 
-            VtConnection = Connection.CreateConnection(destination);
-            VtConnection.SetTerminalWindowSize(Columns, Rows, 800, 600);
+            //Connection = VtConnect.Connection.CreateConnection(destination);
+            Connection.SetTerminalWindowSize(Columns, Rows, 800, 600);
 
-            VtConnection.DataReceived += OnDataReceived;
+            Connection.DataReceived += OnDataReceived;
 
-            var result = VtConnection.Connect(destination, credentials);
+            var result = Connection.Connect();
 
             return result;
         }
@@ -470,7 +470,7 @@ namespace VtNetCore.Avalonia
                         while (column < line.Count)
                         {
                             bool selected = TextSelection == null ? false : TextSelection.Within(column, row);
-                            var backgroundColor = GetBackgroundBrush(line[column].Attributes, selected) as SolidColorBrush;                            
+                            var backgroundColor = GetBackgroundBrush(line[column].Attributes, selected) as SolidColorBrush;
 
                             if (column < (line.Count - 1) && GetBackgroundBrush(line[column + 1].Attributes, TextSelection == null ? false : TextSelection.Within(column + 1, row)) == backgroundColor)
                             {
@@ -711,8 +711,8 @@ namespace VtNetCore.Avalonia
                 Rows = rows;
                 ResizeTerminal();
 
-                if (VtConnection != null)
-                    VtConnection.SetTerminalWindowSize(columns, rows, 800, 600);
+                if (Connection != null)
+                    Connection.SetTerminalWindowSize(columns, rows, 800, 600);
             }
         }
 
@@ -743,7 +743,7 @@ namespace VtNetCore.Avalonia
 
         private void PasteText(string text)
         {
-            if (VtConnection == null)
+            if (Connection == null)
                 return;
 
             Task.Run(() =>
@@ -751,7 +751,7 @@ namespace VtNetCore.Avalonia
                 var buffer = Encoding.UTF8.GetBytes(text);
                 Task.Run(() =>
                 {
-                    VtConnection.SendData(buffer);
+                    Connection.SendData(buffer);
                 });
             });
         }
