@@ -11,7 +11,7 @@ using VtNetCore.VirtualTerminal;
 using VtNetCore.VirtualTerminal.Model;
 using VtNetCore.XTermParser;
 
-namespace VtNetCore.Avalonia.App
+namespace VtNetCore.Avalonia
 {
     public class VirtualTerminalControl : TemplatedControl
     {
@@ -104,8 +104,6 @@ namespace VtNetCore.Avalonia.App
             Terminal.WindowTitleChanged += OnWindowTitleChanged;
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
-
-            //var connected = ConnectTo("ssh://10.2.0.146", "osmc", "osmc");
         }
 
         protected override void OnGotFocus(GotFocusEventArgs e)

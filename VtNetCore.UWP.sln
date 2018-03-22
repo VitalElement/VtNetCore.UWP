@@ -30,7 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SshNet.Security.Cryptograph
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VtNetCore.Cocoa", "VtNetCore.Cocoa\VtNetCore.Cocoa.csproj", "{8D6FC45A-C666-4108-B54B-3209B077CBD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VtNetCore.Avalonia.App", "VtNetCore.Avalonia.App\VtNetCore.Avalonia.App.csproj", "{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VtNetCore.Avalonia.App", "VtNetCore.Avalonia.App\VtNetCore.Avalonia.App.csproj", "{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VtNetCore.Avalonia", "VtNetCore.Avalonia\VtNetCore.Avalonia.csproj", "{7D70ED33-47CB-403E-A363-9127971DD1E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -412,6 +414,38 @@ Global
 		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x64.Build.0 = Release|Any CPU
 		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x86.ActiveCfg = Release|Any CPU
 		{F31378F8-82A4-4E22-ABCF-360EDEA94FEC}.Release|x86.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|x64.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Debug|x86.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|ARM.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|ARM.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|x64.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|x64.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|x86.ActiveCfg = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Debug|x86.Build.0 = Debug|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|Any CPU.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|ARM.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|ARM.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|x64.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|x64.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|x86.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Mac Release|x86.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|ARM.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|x64.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|x64.Build.0 = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|x86.ActiveCfg = Release|Any CPU
+		{7D70ED33-47CB-403E-A363-9127971DD1E9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
