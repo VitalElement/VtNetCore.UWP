@@ -6,7 +6,6 @@ using Avalonia.Media;
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using VtConnect;
 using VtNetCore.VirtualTerminal;
 using VtNetCore.VirtualTerminal.Model;
 using VtNetCore.XTermParser;
