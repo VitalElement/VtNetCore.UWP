@@ -756,16 +756,14 @@ namespace VtNetCore.Avalonia
             });
         }
 
-        private void PasteClipboard()
+        private async void PasteClipboard()
         {
-            //var package = Clipboard.GetContent();
+            string text = await Application.Current.Clipboard.GetTextAsync();
 
-            //Task.Run(async () =>
-            //{
-            //    string text = await package.GetTextAsync();
-            //    if (!string.IsNullOrEmpty(text))
-            //        PasteText(text);
-            //});
+            if (!string.IsNullOrEmpty(text))
+            {
+                PasteText(text);
+            }
         }
     }
 }
