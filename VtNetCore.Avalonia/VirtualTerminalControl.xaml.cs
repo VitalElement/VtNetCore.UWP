@@ -470,7 +470,7 @@ namespace VtNetCore.Avalonia
                         while (column < line.Count)
                         {
                             bool selected = TextSelection == null ? false : TextSelection.Within(column, row);
-                            var backgroundColor = GetBackgroundBrush(line[column].Attributes, selected);
+                            var backgroundColor = GetBackgroundBrush(line[column].Attributes, selected) as SolidColorBrush;                            
 
                             if (column < (line.Count - 1) && GetBackgroundBrush(line[column + 1].Attributes, TextSelection == null ? false : TextSelection.Within(column + 1, row)) == backgroundColor)
                             {
@@ -485,7 +485,7 @@ namespace VtNetCore.Avalonia
                                 CharacterHeight + 0.9
                             );
 
-                            context.FillRectangle(backgroundColor, rect);
+                            context.FillRectangle(new SolidColorBrush(backgroundColor.Color, 0.6), rect);
 
                             column++;
                             spanStart = column;
