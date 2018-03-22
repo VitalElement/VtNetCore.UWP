@@ -374,20 +374,12 @@ namespace VtNetCore.Avalonia
             Connection = null;
         }
 
-        public bool ConnectTo(string uri, string username, string password)
+        public bool ConnectTo(IConnection connection)
         {
             if (Connected)
-                return false;       // Already connected
+                return false;
 
-            //var credentials = new UsernamePasswordCredentials
-            //{
-            //    Username = username,
-            //    Password = password
-            //};
-
-            //var destination = new Uri(uri);
-
-            //Connection = VtConnect.Connection.CreateConnection(destination);
+            Connection = connection;
             Connection.SetTerminalWindowSize(Columns, Rows, 800, 600);
 
             Connection.DataReceived += OnDataReceived;
