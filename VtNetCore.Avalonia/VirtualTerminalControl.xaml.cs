@@ -657,13 +657,23 @@ namespace VtNetCore.Avalonia
 
             if (flip)
             {
-                if (attribute.Bright)
-                    return AttributeBrushes[(int)attribute.ForegroundColor + 8];
+                if (attribute.ForegroundRgb == null)
+                {
+                    if (attribute.Bright)
+                        return AttributeBrushes[(int)attribute.ForegroundColor + 8];
 
-                return AttributeBrushes[(int)attribute.ForegroundColor];
+                    return AttributeBrushes[(int)attribute.ForegroundColor];
+                }
+                else
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)attribute.ForegroundRgb.Red, (byte)attribute.ForegroundRgb.Green, (byte)attribute.ForegroundRgb.Blue));
             }
-
-            return AttributeBrushes[(int)attribute.BackgroundColor];
+            else
+            {
+                if (attribute.BackgroundRgb == null)
+                    return AttributeBrushes[(int)attribute.BackgroundColor];
+                else
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)attribute.BackgroundRgb.Red, (byte)attribute.BackgroundRgb.Green, (byte)attribute.BackgroundRgb.Blue));
+            }
         }
 
         private IBrush GetForegroundBrush(TerminalAttribute attribute, bool invert)
@@ -671,12 +681,24 @@ namespace VtNetCore.Avalonia
             var flip = Terminal.CursorState.ReverseVideoMode ^ attribute.Reverse ^ invert;
 
             if (flip)
-                return AttributeBrushes[(int)attribute.BackgroundColor];
+            {
+                if (attribute.BackgroundRgb == null)
+                    return AttributeBrushes[(int)attribute.BackgroundColor];
+                else
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)attribute.BackgroundRgb.Red, (byte)attribute.BackgroundRgb.Green, (byte)attribute.BackgroundRgb.Blue));
+            }
+            else
+            {
+                if (attribute.ForegroundRgb == null)
+                {
+                    if (attribute.Bright)
+                        return AttributeBrushes[(int)attribute.ForegroundColor + 8];
 
-            if (attribute.Bright)
-                return AttributeBrushes[(int)attribute.ForegroundColor + 8];
-
-            return AttributeBrushes[(int)attribute.ForegroundColor];
+                    return AttributeBrushes[(int)attribute.ForegroundColor];
+                }
+                else
+                    return new SolidColorBrush(Color.FromArgb(255, (byte)attribute.ForegroundRgb.Red, (byte)attribute.ForegroundRgb.Green, (byte)attribute.ForegroundRgb.Blue));
+            }
         }
 
         private void ProcessTextFormat()
