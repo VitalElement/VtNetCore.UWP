@@ -3,6 +3,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Threading;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,25 +15,47 @@ namespace VtNetCore.Avalonia
 {
     public class VirtualTerminalControl : TemplatedControl
     {
+        private int BlinkShowMs { get; set; } = 600;
+        private int BlinkHideMs { get; set; } = 300;
+
         private string InputBuffer { get; set; } = "";
+
+        DispatcherTimer blinkDispatcher;
+
+        // Use Euclid's algorithm to calculate the
+        // greatest common divisor (GCD) of two numbers.
+        private long GCD(long a, long b)
+        {
+            a = Math.Abs(a);
+            b = Math.Abs(b);
+
+            // Pull out remainders.
+            for (; ; )
+            {
+                long remainder = a % b;
+                if (remainder == 0) return b;
+                a = b;
+                b = remainder;
+            };
+        }
 
         private static Color[] AttributeColors =
         {
             Color.FromArgb(255,0,0,0),        // Black
-            Color.FromArgb(255,187,0,0),      // Red
-            Color.FromArgb(255,0,187,0),      // Green
-            Color.FromArgb(255,187,187,0),    // Yellow
-            Color.FromArgb(255,0,0,187),      // Blue
-            Color.FromArgb(255,187,0,187),    // Magenta
-            Color.FromArgb(255,0,187,187),    // Cyan
-            Color.FromArgb(255,187,187,187),  // White
-            Color.FromArgb(255,85,85,85),     // Bright black
-            Color.FromArgb(255,255,85,85),    // Bright red
-            Color.FromArgb(255,85,255,85),    // Bright green
-            Color.FromArgb(255,255,255,85),   // Bright yellow
-            Color.FromArgb(255,85,85,255),    // Bright blue
-            Color.FromArgb(255,255,85,255),   // Bright Magenta
-            Color.FromArgb(255,85,255,255),   // Bright cyan
+            Color.FromArgb(255,205,0,0),      // Red
+            Color.FromArgb(255,0,205,0),      // Green
+            Color.FromArgb(255,205,205,0),    // Yellow
+            Color.FromArgb(255,0,0,205),      // Blue
+            Color.FromArgb(255,205,0,205),    // Magenta
+            Color.FromArgb(255,0,205,205),    // Cyan
+            Color.FromArgb(255,205,205,205),  // White
+            Color.FromArgb(255,127,127,127),     // Bright black
+            Color.FromArgb(255,255,0,0),    // Bright red
+            Color.FromArgb(255,0,255,0),    // Bright green
+            Color.FromArgb(255,255,255,0),   // Bright yellow
+            Color.FromArgb(255,92,92,255),    // Bright blue
+            Color.FromArgb(255,255,0,255),   // Bright Magenta
+            Color.FromArgb(255,0,255,255),   // Bright cyan
             Color.FromArgb(255,255,255,255),  // Bright white
         };
 
@@ -103,6 +126,11 @@ namespace VtNetCore.Avalonia
             Terminal.WindowTitleChanged += OnWindowTitleChanged;
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
+
+            blinkDispatcher = new DispatcherTimer();
+            blinkDispatcher.Tick += (sender, e) => InvalidateVisual();
+            blinkDispatcher.Interval = TimeSpan.FromMilliseconds(Math.Min(150, GCD(BlinkShowMs, BlinkHideMs)));
+            blinkDispatcher.Start();
         }
 
         protected override void OnGotFocus(GotFocusEventArgs e)
@@ -427,6 +455,13 @@ namespace VtNetCore.Avalonia
             }
         }
 
+        private bool BlinkVisible()
+        {
+            var blinkCycle = BlinkShowMs + BlinkHideMs;
+
+            return (DateTime.Now.Subtract(DateTime.MinValue).Milliseconds % blinkCycle) < BlinkHideMs;
+        }
+
         public override void Render(DrawingContext context)
         {
             var format = new Typeface(FontFamily, FontSize, this.FontStyle, this.FontWeight);
@@ -515,36 +550,41 @@ namespace VtNetCore.Avalonia
                                 GetForegroundBrush(line[column + 1].Attributes, TextSelection == null ? false : TextSelection.Within(column + 1, row)) == foregroundColor &&
                                 line[column + 1].Attributes.Underscore == line[column].Attributes.Underscore &&
                                 line[column + 1].Attributes.Reverse == line[column].Attributes.Reverse &&
-                                line[column + 1].Attributes.Bright == line[column].Attributes.Bright
+                                line[column + 1].Attributes.Bright == line[column].Attributes.Bright &&
+                                line[column + 1].Attributes.Blink == line[column].Attributes.Blink
                                 )
                             {
                                 column++;
                                 continue;
                             }
 
-                            var rect = new Rect(
+                            var showBlink = BlinkVisible();
+
+                            if (!line[column].Attributes.Blink || (line[column].Attributes.Blink && showBlink))
+                            {
+                                var rect = new Rect(
                                 spanStart * CharacterWidth,
                                 ((row - (line.DoubleHeightBottom ? 1 : 0)) * CharacterHeight + verticalOffset) * (line.DoubleHeightBottom | line.DoubleHeightTop ? 0.5 : 1.0),
                                 ((column - spanStart + 1) * CharacterWidth) + 0.9,
                                 CharacterHeight + 0.9
                             );
 
+                                var textLayout = new FormattedText
+                                {
+                                    Text = toDisplay,
+                                    Typeface = format
+                                };
 
-                            var textLayout = new FormattedText
-                            {
-                                Text = toDisplay,
-                                Typeface = format
-                            };
+                                context.DrawText(
+                                    foregroundColor,
+                                    rect.TopLeft,
+                                    textLayout
+                                );
 
-                            context.DrawText(
-                                foregroundColor,
-                                rect.TopLeft,
-                                textLayout
-                            );
-
-                            if (line[column].Attributes.Underscore)
-                            {
-                                context.DrawLine(new Pen(foregroundColor), rect.BottomLeft, rect.BottomRight);
+                                if (line[column].Attributes.Underscore)
+                                {
+                                    context.DrawLine(new Pen(foregroundColor), rect.BottomLeft, rect.BottomRight);
+                                }
                             }
 
                             column++;
@@ -552,46 +592,6 @@ namespace VtNetCore.Avalonia
                             toDisplay = "";
                         }
 
-                        //foreach (var character in line)
-                        //{
-                        //    bool selected = TextSelection == null ? false : TextSelection.Within(column, row);
-
-                        //    var rect = new Rect(
-                        //        column * CharacterWidth,
-                        //        ((row - (line.DoubleHeightBottom ? 1 : 0)) * CharacterHeight + verticalOffset) * (line.DoubleHeightBottom | line.DoubleHeightTop ? 0.5 : 1.0),
-                        //        CharacterWidth + 0.9,
-                        //        CharacterHeight + 0.9
-                        //    );
-
-                        //    var toDisplay = character.Char.ToString() + character.CombiningCharacters;
-
-                        //    var textLayout = new CanvasTextLayout(drawingSession, toDisplay, format, 0.0f, 0.0f);
-                        //    var foregroundColor = GetForegroundColor(character.Attributes, selected);
-
-                        //    drawingSession.DrawTextLayout(
-                        //        textLayout,
-                        //        (float)rect.Left,
-                        //        (float)rect.Top,
-                        //        foregroundColor
-                        //    );
-
-                        //    if (character.Attributes.Underscore)
-                        //    {
-                        //        drawingSession.DrawLine(
-                        //            new Vector2(
-                        //                (float)rect.Left,
-                        //                (float)rect.Bottom
-                        //            ),
-                        //            new Vector2(
-                        //                (float)rect.Right,
-                        //                (float)rect.Bottom
-                        //            ),
-                        //            foregroundColor
-                        //        );
-                        //    }
-
-                        //    column++;
-                        //}
                         row++;
                     }
                 }

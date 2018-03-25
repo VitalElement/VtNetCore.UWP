@@ -118,8 +118,6 @@
             Terminal.WindowTitleChanged += OnWindowTitleChanged;
             Terminal.OnLog += OnLog;
             Terminal.StoreRawText = true;
-
-            ConnectTo("ssh://10.2.0.146/", "osmc", "osmc");
         }
 
         void BlinkTimerHandler(object sender, object e)
